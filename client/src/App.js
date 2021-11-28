@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <Header />
-
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -16,6 +15,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
+      <footer>copyright 2022</footer>
     </>
   )
 }
