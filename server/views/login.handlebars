@@ -1,0 +1,45 @@
+<h1 class='text-center'>Login</h1>
+
+{{#if messages.registered}}
+
+  <div class='alert alert-success alert-dismissible fade show' role='alert'>
+    {{messages.registered}}
+    <button
+      type='button'
+      class='btn-close'
+      data-bs-dismiss='alert'
+      aria-label='Close'
+    ></button>
+  </div>
+
+{{/if}}
+
+{{#if messages.error}}
+  {{!-- {{#each message}} --}}
+  <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    {{messages.error}}
+    <button
+      type='button'
+      class='btn-close'
+      data-bs-dismiss='alert'
+      aria-label='Close'
+    ></button>
+  </div>
+  {{!-- {{/each}} --}}
+{{/if}}
+
+<form action='/login' method='post'>
+
+  <div class='mb-3'>
+    <label for='email' class='form-label'>Email</label>
+    <input type='email' class='form-control' name='email' id='email' />
+  </div>
+
+  <div class='mb-3'>
+    <label for='password' class='form-label'>Password</label>
+    <input type='password' class='form-control' name='password' id='password' />
+  </div>
+
+  <button type='submit' class='btn btn-primary'>Login</button>
+  <a type='button' class='btn btn-link btn-sm' href='/'>Not registered?</a>
+</form>

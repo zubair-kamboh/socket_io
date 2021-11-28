@@ -1,0 +1,24 @@
+<h1>Image uploading</h1>
+{{#if msg}}
+  <h4 class='text-danger'>{{msg}}</h4>
+{{/if}}
+<form action='/imageupload' method='post' enctype='multipart/form-data'>
+  <div className='mb-3'>
+    <label htmlFor='formFile' className='form-label'>
+      Choose your image
+    </label>
+    <input
+      className='form-control'
+      {{! accept='image/png, image/gif, image/jpeg' }}
+      name='myImage'
+      type='file'
+      id='file'
+    />
+
+    <input type='submit' class='btn btn-primary' value='Submit' />
+  </div>
+</form>
+
+{{#if file}}
+  <img src={{file}} class='img-fluid' />
+{{/if}}
