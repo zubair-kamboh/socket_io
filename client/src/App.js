@@ -15,6 +15,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
+      <h1>Slider add by 3rd person</h1>
+
       <footer>copyright 2022</footer>
     </>
   )
