@@ -8,6 +8,8 @@ const flash = require('express-flash')
 const mongoose = require('mongoose')
 const Handlebars = require('handlebars')
 const cors = require('cors')
+const methodOverride = require('method-override')
+
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access')
@@ -37,7 +39,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(cors())
 // view engine
-
 app.engine(
   'handlebars',
   engine({
@@ -46,7 +47,10 @@ app.engine(
 )
 app.set('view engine', 'handlebars')
 app.set('views', './views')
-app.use(express.static('./uploads'))
+// app.use(express.static('/images'))
+
+// method override
+app.use(methodOverride('_method'))
 
 // routes
 app.use('/', require('./routes/login/loginRoutes'))
@@ -54,16 +58,19 @@ app.use('/', require('./routes/login/loginRoutes'))
 // api
 app.use('/api/members', require('./routes/api/MemberRoutes'))
 
-// image upload
-app.use('/imageupload', require('./routes/image_upload/ImageUpload'))
+// image upload locally
+// app.use('/imageupload', require('./routes/image_upload/ImageUpload'))
 
-mongoose.connect(
-  'mongodb+srv://zubair:zubair@cluster0.oe4wp.mongodb.net/UsersDB?retryWrites=true&w=majority',
-  (err) => {
-    if (err) throw err
-    console.log('Connected with db')
-  }
-)
+// image upload to mongodb
+app.use('/mongouploads', require('./routes/mongo_uploads/MongoUploads'))
+
+// mongoose.connect(
+//   'mongodb+srv://zubair:zubair@cluster0.oe4wp.mongodb.net/UsersDB?retryWrites=true&w=majority',
+//   (err) => {
+//     if (err) throw err
+//     console.log('Connected with db')
+//   }
+// )
 
 const port = process.env.PORT || 8000
 app.listen(port, () => console.log(`server started at port ${port}`))
