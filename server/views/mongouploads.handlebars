@@ -1,0 +1,49 @@
+<div class='container my-5'>
+  <div class='row'>
+    <div class='col-lg-4 col-md-6 col-sm-12 mx-auto'>
+      <h1> Image uploads to db</h1>
+      <form
+        action='/mongouploads'
+        method='post'
+        enctype='multipart/form-data'
+        class='my-4'
+      >
+        <div class='mb-3 d-grid gap-2'>
+          <label for='formFile' class='form-label'>
+            Choose your image
+          </label>
+          <input class='form-control' name='image' type='file' id='file' />
+
+          <input type='submit' class='btn btn-primary' value='Submit' />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{#if files}}
+  <div class='container d-flex'>
+
+    <div class='row gy-3'>
+      {{#each files}}
+        <div class='col-lg-3 col-md-4 col-12'>
+          <div class='card p-3'>
+            <img
+              src='/mongouploads/images/{{this.filename}}'
+              class=''
+              style='height: 300px; width: 100%; object-fit: cover'
+            />
+            <form
+              class='m-0 mt-1 d-grid'
+              method='post'
+              action='/mongouploads/deleteimg/{{this.filename}}?_method=DELETE'
+            >
+              <input type='submit' value='Delete' class='btn btn-danger' />
+            </form>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+{{/if}}
