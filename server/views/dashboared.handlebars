@@ -1,19 +1,49 @@
 <h3 class='text-center'>Welcome to Dashboared</h3>
 
-{{#if user}}
-  <div class='card mx-auto' style='width: 100%;'>
-    <div class='card-header'>
-      Username:
-      {{user.username}}
-    </div>
-    <ul class='list-group list-group-flush'>
-      <li class='list-group-item'>Id: {{user.id}}</li>
-      <li class='list-group-item'>Email: {{user.email}}</li>
-      <li class='list-group-item'>Passwrod: {{user.password}}</li>
-    </ul>
-  </div>
-{{/if}}
+<div class='container'>
+  <div class='row gap-3'>
+    <div class='col-lg-4 col-md-6 col-12 mx-auto'>
+      {{#if user}}
+        <div class='card mx-auto' style='width: 100%;'>
+          <div class='card-header'>
+            {{#if user.username}}
+              Username:
+              {{user.username}}
+            {{/if}}
 
-<form action='/logout' class='d-grid my-3' method='post'>
-  <input type='submit' value='Logout' class='btn btn-danger' />
-</form>
+            {{#if user.displayName}}
+              Username:
+              {{user.displayName}}
+            {{/if}}
+          </div>
+          <ul class='list-group list-group-flush'>
+            <li class='list-group-item'>Id: {{user.id}}</li>
+            <li class='list-group-item'>Email: {{user.email}}</li>
+            <li class='list-group-item'>
+              {{#if user.password}}
+                {{user.password}}
+              {{/if}}
+              {{#if user.firstName}}
+                First Name:
+                {{user.firstName}}
+              {{/if}}
+              {{#if user.lastName}}
+                Last Name:
+                {{user.lastName}}
+              {{/if}}
+
+            </li>
+          </ul>
+        </div>
+
+        {{#if user.image}}
+          <img class='img-fluid' width='500px' src='{{user.image}}' />
+        {{/if}}
+      {{/if}}
+
+      <form action='/logout' class='d-grid my-3' method='post'>
+        <input type='submit' value='Logout' class='btn btn-danger' />
+      </form>
+    </div>
+  </div>
+</div>
