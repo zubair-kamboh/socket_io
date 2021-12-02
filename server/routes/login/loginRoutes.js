@@ -66,35 +66,48 @@ router.post('/', (req, res) => {
   })
 })
 
+// show login page
 router.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login')
 })
 
+// login user
 router.post(
   '/login',
-  passport.authenticate('local', {
+  passport.authenticate(['local', 'passport-google-oauth20'], {
     successRedirect: '/dashboared',
     failureRedirect: '/login',
     failureFlash: true,
   })
 )
 
-router.get('/dashboared', checkAuthenticated, (req, res) => {
+// login by google
+router.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+  })
+)
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // console.log(req.user)
+    res.redirect('/dashboared')
+  }
+)
+
+// show dashboared page
+router.get('/dashboared', (req, res) => {
   console.log(req.user)
+
   res.render('dashboared', {
     user: req.user,
   })
-
-  // UserModel.findById(req.user.id, (err, userObject) => {
-  //   if (err) throw err
-  //   return userObject
-  // })
-  //   .lean()
-  //   .exec((err, newUser) => {
-  //     res.render('dashboared', {  })
-  //   })
 })
 
+// log out user
 router.post('/logout', (req, res) => {
   req.logOut()
   res.redirect('/login')
